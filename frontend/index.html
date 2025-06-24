@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhà Hàng Núi Food - Đặt Món & Đặt Bàn</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <!-- <i class="fas fa-utensils"></i> -->
+                <span>Núi Food</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Trang Chủ</a></li>
+                <li><a href="#menu" class="nav-link">Thực Đơn</a></li>
+                <li><a href="#reservation" class="nav-link">Đặt Bàn</a></li>
+                <li><a href="#contact" class="nav-link">Liên Hệ</a></li>
+                <li><a href="#" class="nav-link cart-btn" id="cartBtn"><i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span></a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Chào Mừng Đến Với Nhà Hàng Núi Food</h1>
+            <p>Trải nghiệm ẩm thực tuyệt vời với thực đơn tinh tế và dịch vụ đặc biệt</p>
+            <div class="hero-buttons">
+                <a href="#menu" class="btn btn-primary">Đặt Món Ngay</a>
+                <a href="#reservation" class="btn btn-secondary">Đặt Bàn</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="hero-placeholder">
+                <!-- <i class="fas fa-utensils"></i> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <h2 class="section-title"> MENU </h2>
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">Tất Cả</button>
+                <button class="category-btn" data-category="appetizers">Khai Vị</button>
+                <button class="category-btn" data-category="mains">Món Chính</button>
+                <button class="category-btn" data-category="desserts">Tráng Miệng</button>
+                <button class="category-btn" data-category="beverages">Đồ Uống</button>
+            </div>
+            <div class="menu-grid" id="menuGrid">
+                <!-- Menu items will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservation" class="reservation-section">
+        <div class="container">
+            <h2 class="section-title">Đặt Bàn </h2>
+            <div class="reservation-content">
+                <div class="reservation-form">
+                    <form id="reservationForm">
+                        <div class="form-group">
+                            <label for="name">Họ và Tên</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Số Điện Thoại</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date">Ngày</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="time">Giờ</label>
+                                <input type="time" id="time" name="time" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="guests">Số Lượng Khách</label>
+                                <select id="guests" name="guests" required>
+                                    <option value="">Chọn số khách</option>
+                                    <option value="1">1 Khách</option>
+                                    <option value="2">2 Khách</option>
+                                    <option value="3">3 Khách</option>
+                                    <option value="4">4 Khách</option>
+                                    <option value="5">5 Khách</option>
+                                    <option value="6">6 Khách</option>
+                                    <option value="7">7 Khách</option>
+                                    <option value="8">8+ Khách</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="occasion">Dịp Đặc Biệt</label>
+                                <select id="occasion" name="occasion">
+                                    <option value="">Không có</option>
+                                    <option value="birthday">Sinh Nhật</option>
+                                    <option value="anniversary">Kỷ Niệm</option>
+                                    <option value="business">Họp Công Việc</option>
+                                    <option value="date">Hẹn Hò</option>
+                                    <option value="other">Khác</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="requests">Yêu Cầu Đặc Biệt</label>
+                            <textarea id="requests" name="requests" rows="3" placeholder="Yêu cầu về chế độ ăn kiêng hoặc các yêu cầu đặc biệt khác..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Đặt Bàn</button>
+                    </form>
+                </div>
+                <div class="reservation-info">
+                    <h3>Thông Tin Nhà Hàng</h3>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Giờ Mở Cửa</h4>
+                            <p>Thứ Hai - Chủ Nhật: 11:00 AM - 10:00 PM</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Địa Chỉ</h4>
+                            <p>123 Đường Ba Chấm<br>Quận Liên Chiều, TP.Đà Nẵng</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Liên Hệ</h4>
+                            <p>0912027585</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Liên Hệ Với Chúng Tôi</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Địa Chỉ</h4>
+                            <p>123 Đường Ba Chấm<br>Quận Liên Chiều, TP.Đà Nẵng</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Điện Thoại</h4>
+                            <p> 0912027585</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@nuifoodrestaurant.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Tên của bạn" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Email của bạn" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" rows="5" placeholder="Tin nhắn của bạn" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Gửi Tin Nhắn</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Đơn Hàng Của Bạn</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="cartItems"></div>
+                <div class="cart-total">
+                    <h4>Tổng Cộng: <span id="cartTotal">0.00</span></h4>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="clearCart">Xóa Giỏ Hàng</button>
+                <button class="btn btn-primary" id="checkout">Thanh Toán</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <!-- <i class="fas fa-utensils"></i> -->
+                        <span>Núi Food</span>
+                    </div>
+                    <p>Trải nghiệm ẩm thực tuyệt vời với thực đơn tinh tế và dịch vụ đặc biệt.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Liên Kết Nhanh</h4>
+                    <ul>
+                        <li><a href="#home">Trang Chủ</a></li>
+                        <li><a href="#menu">Thực Đơn</a></li>
+                        <li><a href="#reservation">Đặt Bàn</a></li>
+                        <li><a href="#contact">Liên Hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Theo Dõi Chúng Tôi</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nhà Hàng Núi Food. Tất cả quyền được bảo lưu.</p>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Section (Hidden by default, press Ctrl+Shift+B to show) -->
+    <section id="admin" class="admin-section" style="display: none; padding: 2rem 0; background: #f8f9fa;">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #333;">🔧 Quản Lý Menu (Admin)</h2>
+            <div style="max-width: 600px; margin: 0 auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <form id="addMenuItemForm">
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Tên món ăn:</label>
+                        <input type="text" name="name" placeholder="Ví dụ: Phở Bò" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Mô tả:</label>
+                        <textarea name="description" placeholder="Mô tả món ăn..." required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; height: 80px; resize: vertical;"></textarea>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Giá (VND):</label>
+                        <input type="number" name="price" placeholder="85000" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Danh mục:</label>
+                        <select name="category" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="">Chọn danh mục</option>
+                            <option value="appetizers">Khai Vị</option>
+                            <option value="mains">Món Chính</option>
+                            <option value="desserts">Tráng Miệng</option>
+                            <option value="beverages">Đồ Uống</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">URL hình ảnh:</label>
+                        <input type="url" name="imageUrl" placeholder="./images/pho-bo.jpg hoặc https://..." style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Icon (emoji):</label>
+                        <input type="text" name="icon" placeholder="🍜" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    <button type="submit" style="width: 100%; padding: 0.75rem; background: #007bff; color: white; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; transition: background 0.3s;">➕ Thêm Món Ăn</button>
+                </form>
+                
+                <div class="admin-actions" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                    <h3 style="color: #ff6b6b; margin-bottom: 1rem;">🗑️ Quản lý Menu</h3>
+                    
+                    <!-- Xóa từng món ăn -->
+                    <div style="margin-bottom: 2rem; padding: 1rem; background: #fff3cd; border-radius: 5px; border-left: 4px solid #ffc107;">
+                        <h4 style="color: #856404; margin-bottom: 1rem;">🍽️ Xóa Từng Món Ăn</h4>
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <input type="number" id="deleteMenuItemId" placeholder="Nhập ID món ăn" style="flex: 1; padding: 0.5rem; border: 1px solid #ddd; border-radius: 3px;">
+                            <button id="deleteMenuItemBtn" style="padding: 0.5rem 1rem; background: #dc3545; color: white; border: none; border-radius: 3px; cursor: pointer;">🗑️ Xóa</button>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #856404; margin-top: 0.5rem; margin-bottom: 0;">💡 Mẹo: Xem ID món ăn trong danh sách menu hoặc console của trình duyệt</p>
+                    </div>
+                    
+                    <!-- Hiển thị danh sách món ăn -->
+                    <div style="margin-bottom: 2rem; padding: 1rem; background: #d1ecf1; border-radius: 5px; border-left: 4px solid #17a2b8;">
+                        <h4 style="color: #0c5460; margin-bottom: 1rem;">📋 Danh Sách Món Ăn Hiện Tại</h4>
+                        <button id="loadMenuListBtn" style="padding: 0.5rem 1rem; background: #17a2b8; color: white; border: none; border-radius: 3px; cursor: pointer; margin-bottom: 1rem;">🔄 Tải Danh Sách</button>
+                        <div id="menuListDisplay" style="max-height: 200px; overflow-y: auto; background: white; padding: 0.5rem; border-radius: 3px; border: 1px solid #bee5eb;"></div>
+                    </div>
+                    
+                    <button id="deleteAllExceptPhoBo" class="btn" style="background: linear-gradient(45deg, #e74c3c, #c0392b); margin-bottom: 1rem;">
+                        Xóa tất cả món ăn 
+                    </button>
+                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8); font-style: italic;">
+                        ⚠️ Thao tác này sẽ xóa vĩnh viễn tất cả món ăn". Hãy cân nhắc kỹ trước khi thực hiện!
+                    </p>
+                </div>
+                
+                <div style="margin-top: 1rem; padding: 1rem; background: #e9ecef; border-radius: 5px; font-size: 0.9rem; color: #666;">
+                    💡 <strong>Hướng dẫn:</strong><br>
+                    • Nhấn <kbd>Ctrl+Shift+B</kbd> để ẩn/hiện panel admin<br>
+                    • Hình ảnh: Đặt file trong thư mục <code>images/</code> và dùng đường dẫn <code>./images/ten-file.jpg</code><br>
+                    • Icon: Sử dụng emoji như 🍜, 🍚, 🥗, ☕
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="api.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

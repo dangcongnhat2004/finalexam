@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Xác nhận Đặt Bàn</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container my-5">
+    <div class="alert alert-success text-center" role="alert">
+        <h4 class="alert-heading">Đặt Bàn Thành Công!</h4>
+        <p>Cảm ơn <strong th:text="${booking.customerName}">bạn</strong>, yêu cầu đặt bàn của bạn tại nhà hàng <strong th:text="${booking.restaurant.name}">tên nhà hàng</strong> đã được hệ thống ghi nhận.</p>
+        <p>Nhân viên nhà hàng sẽ liên hệ với bạn qua số điện thoại hoặc email để xác nhận trong thời gian sớm nhất.</p>
+        <hr>
+        <p class="mb-0">
+            <a th:href="@{/home}" class="btn btn-primary">Quay về trang chủ</a>
+        </p>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+This folder contains menu item images.
+
+To add images:
+1. Place your food images in this folder
+2. Use relative paths like './images/pho-bo.jpg' in the imageUrl field
+3. Supported formats: .jpg, .jpeg, .png, .webp
+
+Example images you can add:
+- pho-bo.jpg
+- banh-mi.jpg
+- che-ba-mau.jpg
+- ca-phe-sua-da.jpg
+- com-tam.jpg
+- bun-bo-hue.jpg
+- spring-rolls.jpg
+- vietnamese-coffee.jpg
