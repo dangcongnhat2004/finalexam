@@ -1,77 +1,232 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Trang Quản Trị</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Admin Dashboard - Nhà Hàng</title>
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+
+    <!-- === CDN LIBRARIES (KHÔNG CẦN FILE TRONG DỰ ÁN) === -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- === CSS TÙY CHỈNH CHO GIAO DIỆN ADMIN === -->
+    <style>
+        :root {
+            --sidebar-bg: #212529;
+            --sidebar-text-color: #adb5bd;
+            --sidebar-text-hover-color: #ffffff;
+            --sidebar-active-bg: #0d6efd;
+            --main-bg: #f4f6f9;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--main-bg);
+        }
+
+        .sidebar {
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            transition: all 0.3s;
+        }
+
+        .sidebar .nav-link {
+            color: var(--sidebar-text-color);
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar .nav-link i {
+            width: 20px;
+            margin-right: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .sidebar .nav-link:hover {
+            color: var(--sidebar-text-hover-color);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar .nav-link.active {
+            color: var(--sidebar-text-hover-color);
+            background-color: var(--sidebar-active-bg);
+        }
+
+        .sidebar-heading {
+            padding: 1rem 1.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6c757d;
+        }
+
+        .main-content {
+            flex-grow: 1;
+        }
+
+        .stat-card {
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+            transition: all 0.3s ease-in-out;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+        }
+
+        .stat-card .icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #fff;
+        }
+
+    </style>
 </head>
-<body class="d-flex flex-column min-vh-100">
-<div th:replace="~{fragments/header :: header}"></div>
-
-<div class="container my-5">
-    <h1 class="text-center mb-5 fw-bold">Bảng Điều Khiển Quản Trị</h1>
-
-    <!-- Form Thêm Nhà Hàng -->
-    <div class="card mb-5">
-        <div class="card-header">
-            <h3 class="mb-0">Thêm Nhà Hàng Mới</h3>
+<body>
+<div class="d-flex">
+    <!-- ========================= SIDEBAR ========================= -->
+    <div class="sidebar vh-100 p-3 d-flex flex-column">
+        <div>
+            <a href="/admin/dashboard" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <i class="bi bi-egg-fried fs-4 me-2"></i>
+                <span class="fs-4">BookingPro</span>
+            </a>
+            <hr class="text-white">
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="/admin/dashboard" class="nav-link active">
+                        <i class="bi bi-speedometer2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-bookmarks-fill"></i>
+                        Quản lý đặt chỗ
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-shop"></i>
+                        Quản lý nhà hàng
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-people-fill"></i>
+                        Quản lý người dùng
+                    </a>
+                </li>
+            </ul>
         </div>
-        <div class="card-body p-4">
-            <form th:action="@{/admin/restaurant/add}" th:object="${newRestaurant}" method="post" enctype="multipart/form-data">
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="name" class="form-label">Tên Nhà Hàng</label>
-                        <input type="text" class="form-control" id="name" th:field="*{name}" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="address" class="form-label">Địa Chỉ</label>
-                        <input type="text" class="form-control" id="address" th:field="*{address}" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Mô Tả</label>
-                    <textarea class="form-control" id="description" th:field="*{description}" rows="3"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="imageFile" class="form-label">Ảnh Đại Diện</label>
-                    <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Thêm Nhà Hàng</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Bảng Danh Sách Đặt Chỗ -->
-    <div class="table-container">
-        <h3 class="mb-4">Danh Sách Đặt Chỗ</h3>
-        <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Khách Hàng</th>
-                    <th>Email</th>
-                    <th>Nhà Hàng</th>
-                    <th>Thời Gian</th>
-                    <th>Số Người</th>
-                    <th>Trạng Thái</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="booking : ${bookings}">
-                    <td th:text="${booking.id}">1</td>
-                    <td class="fw-bold" th:text="${booking.customerName}">Nguyễn Văn A</td>
-                    <td th:text="${booking.customerEmail}">a@gmail.com</td>
-                    <td th:text="${booking.restaurant.name}">Phố Cổ</td>
-                    <td th:text="${#temporals.format(booking.bookingTime, 'HH:mm dd-MM-yyyy')}">20:00 25-12-2024</td>
-                    <td th:text="${booking.numberOfPeople}">4</td>
-                    <td><span class="badge rounded-pill text-bg-warning" th:text="${booking.status}">PENDING</span></td>
-                </tr>
-                </tbody>
-            </table>
+        <hr class="text-white">
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://i.pravatar.cc/40?u=admin" alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong sec:authentication="principal.username">Admin</strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="/">Về trang chủ</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+            </ul>
         </div>
     </div>
+    <!-- ========================= END SIDEBAR ========================= -->
+
+    <!-- ========================= MAIN CONTENT ========================= -->
+    <div class="main-content p-4">
+        <h1 class="fw-bold mb-4">Dashboard</h1>
+
+        <!-- === STATS CARDS === -->
+        <div class="row g-4">
+            <div class="col-md-6 col-xl-3">
+                <div class="card stat-card bg-white">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-circle bg-primary me-3">
+                                <i class="bi bi-shop"></i>
+                            </div>
+                            <div>
+                                <h6 class="card-subtitle text-muted">Tổng số nhà hàng</h6>
+                                <h4 class="card-title fw-bold" th:text="${restaurants.size()}">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card stat-card bg-white">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-circle bg-success me-3">
+                                <i class="bi bi-calendar-check-fill"></i>
+                            </div>
+                            <div>
+                                <h6 class="card-subtitle text-muted">Tổng lượt đặt bàn</h6>
+                                <h4 class="card-title fw-bold" th:text="${bookings.size()}">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Thêm các card khác nếu cần -->
+        </div>
+
+        <!-- === BOOKINGS TABLE === -->
+        <div class="card shadow-sm mt-5">
+            <div class="card-header bg-white border-0">
+                <h5 class="mb-0 fw-bold">Các lượt đặt bàn gần đây</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Khách Hàng</th>
+                            <th>Nhà Hàng</th>
+                            <th>Thời Gian</th>
+                            <th>Trạng Thái</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="booking : ${bookings}">
+                            <td th:text="${booking.id}"></td>
+                            <td class="fw-bold" th:text="${booking.customerName}"></td>
+                            <td th:text="${booking.restaurant.name}"></td>
+                            <td th:text="${#temporals.format(booking.bookingTime, 'HH:mm dd-MM-yyyy')}"></td>
+                            <td><span class="badge rounded-pill text-bg-warning" th:text="${booking.status}"></span></td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(bookings)}">
+                            <td colspan="5" class="text-center text-muted">Chưa có lượt đặt bàn nào.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ========================= END MAIN CONTENT ========================= -->
 </div>
 
-<div th:replace="~{fragments/footer :: footer}"></div>
+<!-- === CORE JS FILES (CDN) === -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

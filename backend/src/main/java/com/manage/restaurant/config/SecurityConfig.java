@@ -27,8 +27,7 @@ public class SecurityConfig {
                         authorize
                                 // ----- DÒNG QUAN TRỌNG NHẤT LÀ ĐÂY -----
                                 // Cho phép tất cả mọi người truy cập vào các tài nguyên tĩnh
-                                .requestMatchers("/css/**", "/js/**", "/uploads/**", "/images/**").permitAll()
-                                // Cho phép truy cập trang chủ, đăng ký, chi tiết nhà hàng
+                                .requestMatchers("/css/**", "/js/**", "/uploads/**", "/images/**").permitAll()                                 // Cho phép truy cập trang chủ, đăng ký, chi tiết nhà hàng
                                 .requestMatchers("/", "/home", "/register/**", "/restaurant/**").permitAll()
                                 // Yêu cầu quyền ADMIN cho trang /admin/**
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
